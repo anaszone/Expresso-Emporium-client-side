@@ -6,7 +6,7 @@ const AddCoffee = () => {
 
     const form = e.target;
     const name = form.name.value;
-    const chef = form.chef.value;
+    const quantity = form.quantity.value;
     const supplier = form.supplier.value;
     const taste = form.taste.value;
     const category = form.category.value;
@@ -15,7 +15,7 @@ const AddCoffee = () => {
 
     const newCoffee = {
       name,
-      chef,
+      quantity,
       supplier,
       taste,
       category,
@@ -24,23 +24,40 @@ const AddCoffee = () => {
     };
 
     console.log(newCoffee);
+
+    fetch("http://localhost:3000/coffees", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Server Response:", data);
+
+        if (data.insertedId) {
+          alert("Coffee added successfully!");
+          form.reset();
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
     <div className="bg-[#F4F3F0] min-h-screen py-10 px-4">
       <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-10">
-        <h2 className="text-3xl font-bold text-center mb-4">
-          Add New Coffee
-        </h2>
+        <h2 className="text-3xl font-bold text-center mb-4">Add New Coffee</h2>
 
         <p className="text-center text-gray-500 mb-10">
-          It is a long established fact that a reader will be distracted by
-          the readable content of a page when looking at its layout.
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout.
         </p>
 
         <form onSubmit={handleAddCoffee}>
           <div className="grid md:grid-cols-2 gap-6">
-            
             {/* Name */}
             <div>
               <label className="block mb-2 font-semibold">Name</label>
@@ -54,11 +71,11 @@ const AddCoffee = () => {
 
             {/* Chef */}
             <div>
-              <label className="block mb-2 font-semibold">Chef</label>
+              <label className="block mb-2 font-semibold">Quantity</label>
               <input
                 type="text"
-                name="chef"
-                placeholder="Enter coffee chef"
+                name="quantity"
+                placeholder="Enter coffee Quantity"
                 className="w-full border rounded-md p-3"
               />
             </div>
