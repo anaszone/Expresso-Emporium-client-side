@@ -10,7 +10,7 @@ const AddCoffee = () => {
     const quantity = form.quantity.value;
     const supplier = form.supplier.value;
     const taste = form.taste.value;
-    const category = form.category.value;
+    const price = form.price.value; // changed
     const details = form.details.value;
     const photo = form.photo.value;
 
@@ -19,7 +19,7 @@ const AddCoffee = () => {
       quantity,
       supplier,
       taste,
-      category,
+      price, // changed
       details,
       photo,
     };
@@ -39,26 +39,27 @@ const AddCoffee = () => {
 
         if (data.insertedId) {
           Swal.fire({
-      title: "☕ Coffee Added!",
-      html: `
-        <div style="font-size: 18px; margin-top:10px;">
-          Your delicious coffee has been added successfully!
-        </div>
-      `,
-      imageUrl: "https://cdn-icons-png.flaticon.com/512/924/924514.png",
-      imageWidth: 100,
-      imageHeight: 100,
-      background: "#F4F3F0",
-      color: "#5C4033",
-      confirmButtonText: "Brew More ☕",
-      confirmButtonColor: "#D2B48C",
-      showClass: {
-        popup: "animate__animated animate__zoomIn"
-      },
-      hideClass: {
-        popup: "animate__animated animate__zoomOut"
-      }
-    });
+            title: "☕ Coffee Added!",
+            html: `
+              <div style="font-size: 18px; margin-top:10px;">
+                Your delicious coffee has been added successfully!
+              </div>
+            `,
+            imageUrl:
+              "https://cdn-icons-png.flaticon.com/512/924/924514.png",
+            imageWidth: 100,
+            imageHeight: 100,
+            background: "#F4F3F0",
+            color: "#5C4033",
+            confirmButtonText: "Brew More ☕",
+            confirmButtonColor: "#D2B48C",
+            showClass: {
+              popup: "animate__animated animate__zoomIn",
+            },
+            hideClass: {
+              popup: "animate__animated animate__zoomOut",
+            },
+          });
           form.reset();
         }
       })
@@ -70,7 +71,9 @@ const AddCoffee = () => {
   return (
     <div className="bg-[#F4F3F0] min-h-screen py-10 px-4">
       <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-10">
-        <h2 className="text-3xl font-bold text-center mb-4">Add New Coffee</h2>
+        <h2 className="text-3xl font-bold text-center mb-4">
+          Add New Coffee
+        </h2>
 
         <p className="text-center text-gray-500 mb-10">
           It is a long established fact that a reader will be distracted by the
@@ -79,7 +82,6 @@ const AddCoffee = () => {
 
         <form onSubmit={handleAddCoffee}>
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Name */}
             <div>
               <label className="block mb-2 font-semibold">Name</label>
               <input
@@ -90,7 +92,6 @@ const AddCoffee = () => {
               />
             </div>
 
-            {/* Chef */}
             <div>
               <label className="block mb-2 font-semibold">Quantity</label>
               <input
@@ -101,7 +102,6 @@ const AddCoffee = () => {
               />
             </div>
 
-            {/* Supplier */}
             <div>
               <label className="block mb-2 font-semibold">Supplier</label>
               <input
@@ -112,7 +112,6 @@ const AddCoffee = () => {
               />
             </div>
 
-            {/* Taste */}
             <div>
               <label className="block mb-2 font-semibold">Taste</label>
               <input
@@ -123,18 +122,17 @@ const AddCoffee = () => {
               />
             </div>
 
-            {/* Category */}
+            {/* Changed Section */}
             <div>
-              <label className="block mb-2 font-semibold">Category</label>
+              <label className="block mb-2 font-semibold">Price</label>
               <input
                 type="text"
-                name="category"
-                placeholder="Enter coffee category"
+                name="price"
+                placeholder="Enter coffee price"
                 className="w-full border rounded-md p-3"
               />
             </div>
 
-            {/* Details */}
             <div>
               <label className="block mb-2 font-semibold">Details</label>
               <input
@@ -145,7 +143,6 @@ const AddCoffee = () => {
               />
             </div>
 
-            {/* Photo */}
             <div className="md:col-span-2">
               <label className="block mb-2 font-semibold">Photo</label>
               <input
