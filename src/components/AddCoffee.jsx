@@ -1,4 +1,5 @@
 import React from "react";
+import Swal from "sweetalert2";
 
 const AddCoffee = () => {
   const handleAddCoffee = (e) => {
@@ -37,7 +38,27 @@ const AddCoffee = () => {
         console.log("Server Response:", data);
 
         if (data.insertedId) {
-          alert("Coffee added successfully!");
+          Swal.fire({
+      title: "☕ Coffee Added!",
+      html: `
+        <div style="font-size: 18px; margin-top:10px;">
+          Your delicious coffee has been added successfully!
+        </div>
+      `,
+      imageUrl: "https://cdn-icons-png.flaticon.com/512/924/924514.png",
+      imageWidth: 100,
+      imageHeight: 100,
+      background: "#F4F3F0",
+      color: "#5C4033",
+      confirmButtonText: "Brew More ☕",
+      confirmButtonColor: "#D2B48C",
+      showClass: {
+        popup: "animate__animated animate__zoomIn"
+      },
+      hideClass: {
+        popup: "animate__animated animate__zoomOut"
+      }
+    });
           form.reset();
         }
       })
