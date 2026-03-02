@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData, Link } from "react-router";
 import CoffeeCard from "./CoffeeCard";
 
 const Home = () => {
-  const coffees = useLoaderData();
+  const initialCoffees = useLoaderData();
+
+  const [coffees, setCoffees] = useState(initialCoffees);
 
   return (
     <div className="bg-cover bg-center py-20 px-4">
@@ -25,7 +27,10 @@ const Home = () => {
       {/* Coffee Grid */}
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
         {coffees.map((coffee) => (
-          <CoffeeCard key={coffee._id} coffee={coffee} />
+          <CoffeeCard key={coffee._id}
+          coffees = {coffees}
+          setCoffees = {setCoffees}
+           coffee={coffee} />
         ))}
       </div>
     </div>
