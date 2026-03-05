@@ -18,6 +18,7 @@ const SignIn = () => {
       .then((result) => {
         console.log("Logged In User:", result.user);
         Swal.fire("Success", "Welcome Back!", "success");
+        form.reset();
 
         const lastLoggedAt = result.user?.metadata?.lastSignInTime;
         const userUpdateInfo = { email, lastLoggedAt };

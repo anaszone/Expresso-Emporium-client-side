@@ -30,6 +30,7 @@ const SignUp = () => {
         };
 
         Swal.fire("Success", "Account Created!", "success");
+        form.reset();
 
        
         fetch("http://localhost:3000/users", {
