@@ -1,10 +1,9 @@
 import React from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, Link } from "react-router";
 import Swal from "sweetalert2";
 
 const UpdateCoffee = () => {
   const coffee = useLoaderData();
-
   const { _id, name, chef, supplier, taste, price, details, photo } = coffee;
 
   const handleUpdateCoffee = (event) => {
@@ -19,184 +18,99 @@ const UpdateCoffee = () => {
     const details = form.details.value;
     const photo = form.photo.value;
 
-    const updatedCoffee = {
-      name,
-      chef,
-      supplier,
-      taste,
-      price,
-      details,
-      photo,
-    };
+    const updatedCoffee = { name, chef, supplier, taste, price, details, photo };
 
     fetch(`http://localhost:3000/coffees/${_id}`, {
       method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(updatedCoffee),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.modifiedCount > 0) {
           Swal.fire({
             title: "Success!",
             text: "Coffee Updated Successfully",
             icon: "success",
             confirmButtonText: "Cool",
+            confirmButtonColor: "#331A15"
           });
         }
       });
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F3F0] p-8 md:p-24">
-      <div className="max-w-6xl mx-auto mb-8">
-        <a
-          href="/"
-          className="flex items-center gap-2 text-[#374151] font-serif text-2xl hover:text-[#D2B48C] transition-colors"
+    
+    <div className="min-h-screen bg-[#F4F3F0] p-4 md:p-12 lg:p-24">
+      <div className="max-w-6xl mx-auto mb-6 md:mb-8">
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-[#374151] font-serif text-xl md:text-2xl hover:text-[#D2B48C] transition-colors"
         >
-          <span>&larr;</span>{" "}
-          <span style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.2)" }}>
-            Back to home
-          </span>
-        </a>
+          <span>&larr;</span>
+          <span style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.1)" }}>Back to home</span>
+        </Link>
       </div>
 
-      <div className="max-w-6xl mx-auto bg-[#F4F3F0] py-16 px-8 md:px-28 rounded-md shadow-sm border border-gray-200">
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <h2
-            className="text-4xl font-serif text-[#374151] mb-6"
-            style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
-          >
+    
+      <div className="max-w-6xl mx-auto bg-[#F4F3F1] py-10 md:py-16 px-4 md:px-12 lg:px-28 rounded-md shadow-sm border border-gray-200">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
+          <h2 className="text-3xl md:text-4xl font-serif text-[#374151] mb-4">
             Update Existing Coffee Details
           </h2>
-          <p className="text-gray-500 text-lg leading-relaxed">
-            Updating info for:{" "}
-            <span className="text-[#331A15] font-bold">{name}</span>
+          <p className="text-gray-500 text-sm md:text-lg leading-relaxed">
+            Updating info for: <span className="text-[#331A15] font-bold">{name}</span>
           </p>
         </div>
 
-        <form onSubmit={handleUpdateCoffee} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            {/* Name */}
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text text-xl font-semibold mb-2 block">
-                  Name
-                </span>
-              </label>
-              <input
-                type="text"
-                name="name"
-                defaultValue={name} // Default Value Set
-                placeholder="Enter coffee name"
-                className="w-full p-3 bg-white border-none rounded-md focus:outline-[#D2B48C]"
-              />
-            </div>
-
-            {/* Chef */}
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text text-xl font-semibold mb-2 block">
-                  Chef
-                </span>
-              </label>
-              <input
-                type="text"
-                name="chef"
-                defaultValue={chef} // Default Value Set
-                placeholder="Enter coffee chef"
-                className="w-full p-3 bg-white border-none rounded-md focus:outline-[#D2B48C]"
-              />
-            </div>
-
-            {/* Supplier */}
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text text-xl font-semibold mb-2 block">
-                  Supplier
-                </span>
-              </label>
-              <input
-                type="text"
-                name="supplier"
-                defaultValue={supplier} // Default Value Set
-                placeholder="Enter coffee supplier"
-                className="w-full p-3 bg-white border-none rounded-md focus:outline-[#D2B48C]"
-              />
-            </div>
-
-            {/* Taste */}
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text text-xl font-semibold mb-2 block">
-                  Taste
-                </span>
-              </label>
-              <input
-                type="text"
-                name="taste"
-                defaultValue={taste} // Default Value Set
-                placeholder="Enter coffee taste"
-                className="w-full p-3 bg-white border-none rounded-md focus:outline-[#D2B48C]"
-              />
-            </div>
-
-            {/* Price */}
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text text-xl font-semibold mb-2 block">
-                  Price
-                </span>
-              </label>
-              <input
-                type="text"
-                name="price"
-                defaultValue={price} // Default Value Set
-                placeholder="Enter coffee price"
-                className="w-full p-3 bg-white border-none rounded-md focus:outline-[#D2B48C]"
-              />
-            </div>
-
-            {/* Details */}
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text text-xl font-semibold mb-2 block">
-                  Details
-                </span>
-              </label>
-              <input
-                type="text"
-                name="details"
-                defaultValue={details} // Default Value Set
-                placeholder="Enter coffee details"
-                className="w-full p-3 bg-white border-none rounded-md focus:outline-[#D2B48C]"
-              />
-            </div>
+        <form onSubmit={handleUpdateCoffee} className="space-y-4 md:space-y-6">
+         
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-6">
+            
+            {/* Field Template */}
+            {[
+              { label: "Name", name: "name", val: name },
+              { label: "Chef", name: "chef", val: chef },
+              { label: "Supplier", name: "supplier", val: supplier },
+              { label: "Taste", name: "taste", val: taste },
+              { label: "Price", name: "price", val: price },
+              { label: "Details", name: "details", val: details }
+            ].map((field) => (
+              <div key={field.name} className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-lg md:text-xl font-semibold mb-1 block">
+                    {field.label}
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  name={field.name}
+                  defaultValue={field.val}
+                  placeholder={`Enter coffee ${field.label.toLowerCase()}`}
+                  className="w-full p-3 bg-white border-none rounded-md focus:ring-2 focus:ring-[#D2B48C] outline-none"
+                />
+              </div>
+            ))}
           </div>
 
-          {/* Photo URL */}
+          {/* Photo URL: Full Width */}
           <div className="form-control w-full">
             <label className="label">
-              <span className="label-text text-xl font-semibold mb-2 block">
-                Photo
-              </span>
+              <span className="label-text text-lg md:text-xl font-semibold mb-1 block">Photo</span>
             </label>
             <input
               type="text"
               name="photo"
-              defaultValue={photo} // Default Value Set
+              defaultValue={photo}
               placeholder="Enter photo URL"
-              className="w-full p-3 bg-white border-none rounded-md focus:outline-[#D2B48C]"
+              className="w-full p-3 bg-white border-none rounded-md focus:ring-2 focus:ring-[#D2B48C] outline-none"
             />
           </div>
 
-          <div className="pt-4">
+          <div className="pt-6">
             <button
               type="submit"
-              className="w-full bg-[#D2B48C] border-2 border-[#331A15] text-[#331A15] font-serif text-2xl py-3 rounded-md cursor-pointer hover:bg-[#b89a74] transition-all"
+              className="w-full bg-[#D2B48C] border-2 border-[#331A15] text-[#331A15] font-serif text-xl md:text-2xl py-3 rounded-md hover:bg-[#331A15] hover:text-white transition-all active:scale-[0.98]"
             >
               Update Coffee Details
             </button>
