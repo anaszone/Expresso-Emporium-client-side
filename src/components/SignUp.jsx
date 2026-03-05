@@ -15,15 +15,23 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const newUser = { name, email, password };
-    console.log(newUser);
-
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        
+        const creationTime = result.user?.metadata?.creationTime;
+        const lastSignInTime = result.user?.metadata?.lastSignInTime;
+
+       
+        const newUser = {
+          name,
+          email,
+          creationTime: creationTime,
+          lastLoggedAt: lastSignInTime,
+        };
 
         Swal.fire("Success", "Account Created!", "success");
 
+       
         fetch("http://localhost:3000/users", {
           method: "POST",
           headers: {
@@ -33,7 +41,10 @@ const SignUp = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            console.log("User added to DB:", data);
+            if (data.insertedId) {
+              form.reset();
+            }
           });
       })
       .catch((error) => {
